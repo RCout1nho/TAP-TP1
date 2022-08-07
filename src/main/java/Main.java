@@ -1,8 +1,8 @@
-import view.Home;
+import view.Login;
 
 public class Main {
     public static void main(String[] args) {
-        Home home = new Home();
-        home.getFrame().setVisible(true);
+        Login home = new Login();
+        home.setVisible(true);
     }
 }
