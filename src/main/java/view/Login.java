@@ -3,72 +3,73 @@ package view;
 import model.User;
 import service.UserService;
 import service.impl.UserMockedImpl;
+import service.impl.UserMySqlImpl;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Optional;
 
-public class Login extends JFrame{
-    private UserService userService = new UserMockedImpl();
+public class Login {
+    private UserService userService;
+    private JFrame frame;
 
     public Login(){
+        userService = new UserMockedImpl();
 
-        super("Your Rental Admin");
-        this.setSize(300,250);
-        this.setLayout(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setFont(new Font("sans-serif", Font.PLAIN, 15));
+        frame = new JFrame("Your Rental Admin");
+        frame.add(new MainPanel(userService,frame));
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setSize(300,250);
+        frame.setResizable(false);
+        frame.setFont(new Font("sans-serif", Font.PLAIN, 15));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+    static class MainPanel extends JPanel{
+        public MainPanel(UserService userService, JFrame frame){
+            this.setLayout(null);
 
-        // Header
-        JLabel lbTitle = new JLabel("Login");
-        lbTitle.setBounds(0,20,300,25);
-        lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        lbTitle.setFont(new Font("sans-serif", Font.BOLD, 20));
-        this.add(lbTitle);
+            JLabel lbTitle = new JLabel("Login");
+            lbTitle.setBounds(0,0,300,40);
+            lbTitle.setFont(new Font("sans-serif", Font.BOLD, 20));
+            lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
+            this.add(lbTitle);
 
-        // Login field
-        JLabel lbLogin = new JLabel("Username:");
-        lbLogin.setBounds(10, 100, 100, 15);
-        lbLogin.setFont(new Font("sans-serif", Font.BOLD, 15));
-        this.add(lbLogin);
+            JTextField tfEmail = new JTextField();
+            JLabel lbEmail = new JLabel("E-mail");
+            lbEmail.setBounds(20,75,50,20);
+            tfEmail.setBounds(75,75,200,20);
+            this.add(lbEmail);
+            this.add(tfEmail);
 
-        JTextField tfLogin = new JTextField();
-        tfLogin.setBounds(120,100,150,15);
-        this.add(tfLogin);
+            JTextField tfPassword = new JTextField();
+            JLabel lbPassword = new JLabel("Senha");
+            lbPassword.setBounds(20,100,50,20);
+            tfPassword.setBounds(75,100,200,20);
+            this.add(lbPassword);
+            this.add(tfPassword);
 
-        // Password field
-        JLabel lbPassword = new JLabel("Password:");
-        lbPassword.setBounds(10, 130, 100, 15);
-        lbPassword.setFont(new Font("sans-serif", Font.BOLD, 15));
-        this.add(lbPassword);
+            JButton btnLogin = new JButton("Entrar");
+            btnLogin.setBounds(184, 130, 90,20);
+            this.add(btnLogin);
 
-        JTextField tfPassword = new JTextField();
-        tfPassword.setBounds(120,130,150,15);
-        this.add(tfPassword);
-
-        // Login Button
-        // GUI
-        JButton btnLogin = new JButton("Login");
-        btnLogin.setBounds(170, 160, 100, 20);
-        this.add(btnLogin);
-
-        // Event
-        btnLogin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO: Validar login e senha com o DB
-                if(userService.login(tfLogin.getText(), tfPassword.getText())){
-                    Home home = new Home(1);
-//                    home.setVisible(true);
-                    dispose();
-                }else{
-                    // TODO: Abrir alerta e falar que login/senha estão errados
-                    System.out.println("Login/senha incorretos");
+            btnLogin.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Optional<User> user = userService.login(tfEmail.getText(), tfPassword.getText());
+                    if(user.isPresent()){
+                        // login
+                        Home home = new Home(user.get());
+                        frame.dispose();
+                    }else{
+                        // TODO: Mostrar dialog
+                        System.out.println("login/senha inválidos");
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }

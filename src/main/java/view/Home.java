@@ -1,13 +1,15 @@
 package view;
 
+import model.User;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Home{
-    public Home(Integer userId){
+    public Home(User user){
         JFrame frame = new JFrame("Your Rental Admin");
-        frame.add(new MainPanel(userId));
+        frame.add(new MainPanel(user));
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setSize(250,250);
@@ -16,7 +18,7 @@ public class Home{
     }
 
     static class MainPanel extends JPanel {
-        public MainPanel(Integer userId){
+        public MainPanel(User user){
             this.setBorder(new EmptyBorder(10,10,10,10));
             this.setLayout(new GridBagLayout());
 

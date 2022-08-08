@@ -6,6 +6,7 @@ import service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserMockedImpl implements UserService {
@@ -40,7 +41,7 @@ public class UserMockedImpl implements UserService {
     }
 
     @Override
-    public boolean login(String email, String password) {
-        return users.stream().filter(user -> user.email.equals(email) && user.password.equals(password)).findFirst().get() != null;
+    public Optional<User> login(String email, String password) {
+        return users.stream().filter(user -> user.email.equals(email) && user.password.equals(password)).findFirst();
     }
 }

@@ -4,6 +4,7 @@ import dto.CreateUserDto;
 import model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 // TODO: Missing update method
 public interface UserService {
@@ -11,5 +12,5 @@ public interface UserService {
     List<User> getAllUsers();
     User getUserById(Integer id);
     void removeUser(Integer id);
-    boolean login(String email, String password);
+    Optional<User> login(String email, String password);
 }

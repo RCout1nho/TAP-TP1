@@ -5,6 +5,7 @@ import model.User;
 import service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserMySqlImpl implements UserService {
     @Override
@@ -28,7 +29,7 @@ public class UserMySqlImpl implements UserService {
     }
 
     @Override
-    public boolean login(String email, String password) {
-        return false;
+    public Optional<User> login(String email, String password) {
+        return null;
     }
 }
