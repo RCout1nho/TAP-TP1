@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserMySqlImpl implements UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserMySqlImpl(Connection connection) {
         userRepository = new UserRepository(connection);
