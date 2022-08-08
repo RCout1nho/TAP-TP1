@@ -41,7 +41,7 @@ public class UserMockedImpl implements UserService {
     }
 
     @Override
-    public Optional<User> login(String email, String password) {
-        return users.stream().filter(user -> user.email.equals(email) && user.password.equals(password)).findFirst();
+    public User login(String email, String password) {
+        return users.stream().filter(user -> user.email.equals(email) && user.password.equals(password)).findFirst().orElse(null);
     }
 }

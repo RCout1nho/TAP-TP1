@@ -9,14 +9,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.util.Optional;
 
 public class Login {
     private UserService userService;
     private JFrame frame;
 
-    public Login(){
-        userService = new UserMockedImpl();
+    public Login(Connection connection){
+        userService = new UserMySqlImpl(connection);
 
         frame = new JFrame("Your Rental Admin");
         frame.add(new MainPanel(userService,frame));
@@ -59,10 +60,10 @@ public class Login {
             btnLogin.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Optional<User> user = userService.login(tfEmail.getText(), tfPassword.getText());
-                    if(user.isPresent()){
+                    User user = userService.login(tfEmail.getText(), tfPassword.getText());
+                    if(user != null){
                         // login
-                        Home home = new Home(user.get());
+                        Home home = new Home(user);
                         frame.dispose();
                     }else{
                         // TODO: Mostrar dialog

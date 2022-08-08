@@ -1,8 +1,8 @@
+import database.DataBaseConnection;
 import view.Login;
 
 public class Main {
     public static void main(String[] args) {
-//        Home home = new Home(1);
-        Login login = new Login();
+        Login login = new Login(DataBaseConnection.getConnection());
     }
 }

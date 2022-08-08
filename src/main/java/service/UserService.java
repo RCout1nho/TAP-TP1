@@ -12,5 +12,5 @@ public interface UserService {
     List<User> getAllUsers();
     User getUserById(Integer id);
     void removeUser(Integer id);
-    Optional<User> login(String email, String password);
+   User login(String email, String password);
 }
