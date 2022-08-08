@@ -1,11 +1,20 @@
 package view;
 
+import model.User;
+import service.UserService;
+import service.impl.UserMockedImpl;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Login extends JFrame{
+    private UserService userService = new UserMockedImpl();
 
     public Login(){
+
         super("Your Rental Admin");
         this.setSize(300,250);
         this.setLayout(null);
@@ -40,8 +49,26 @@ public class Login extends JFrame{
         tfPassword.setBounds(120,130,150,15);
         this.add(tfPassword);
 
+        // Login Button
+        // GUI
         JButton btnLogin = new JButton("Login");
         btnLogin.setBounds(170, 160, 100, 20);
         this.add(btnLogin);
+
+        // Event
+        btnLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO: Validar login e senha com o DB
+                if(userService.login(tfLogin.getText(), tfPassword.getText())){
+                    Home home = new Home(1);
+//                    home.setVisible(true);
+                    dispose();
+                }else{
+                    // TODO: Abrir alerta e falar que login/senha estão errados
+                    System.out.println("Login/senha incorretos");
+                }
+            }
+        });
     }
 }
