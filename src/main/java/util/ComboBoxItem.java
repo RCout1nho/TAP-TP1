@@ -1,4 +1,4 @@
-package model.enumerators;
+package util;
 
 public class ComboBoxItem {
     private Integer id;

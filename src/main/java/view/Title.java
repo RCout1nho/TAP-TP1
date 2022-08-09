@@ -1,15 +1,13 @@
 package view;
 
 import model.User;
-import model.enumerators.ComboBoxItem;
+import util.ComboBoxItem;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
 public class Title {
