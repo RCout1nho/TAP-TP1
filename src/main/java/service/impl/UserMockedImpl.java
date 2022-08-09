@@ -20,7 +20,7 @@ public class UserMockedImpl implements UserService {
 
     @Override
     public User createUser(CreateUserDto createUserDto) {
-        User user = new User(users.get(users.size()-1).id, createUserDto.name, createUserDto.email , createUserDto.password);
+        User user = new User(users.get(users.size()-1).id, createUserDto.getName(), createUserDto.getEmail() , createUserDto.getPassword());
         users.add(user);
         return user;
     }

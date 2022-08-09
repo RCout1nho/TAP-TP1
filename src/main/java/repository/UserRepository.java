@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserRepository{
-    private Connection connection;
+    private final Connection connection;
 
     public UserRepository() {
         this.connection = DataBaseConnection.getConnection();
