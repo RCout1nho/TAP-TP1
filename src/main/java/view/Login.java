@@ -13,14 +13,11 @@ import java.sql.Connection;
 import java.util.Optional;
 
 public class Login {
-    private UserService userService;
-    private JFrame frame;
+    public Login(){
+        UserService userService = new UserMySqlImpl();
 
-    public Login(Connection connection){
-        userService = new UserMySqlImpl(connection);
-
-        frame = new JFrame("Your Rental Admin");
-        frame.add(new MainPanel(userService,frame));
+        JFrame frame = new JFrame("Your Rental Admin");
+        frame.add(new MainPanel(userService, frame));
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setSize(300,250);

@@ -14,8 +14,8 @@ import java.util.Optional;
 public class UserRepository{
     private Connection connection;
 
-    public UserRepository(Connection connection) {
-        this.connection = connection;
+    public UserRepository() {
+        this.connection = DataBaseConnection.getConnection();
     }
 
     public List<User> getAllUsers(){

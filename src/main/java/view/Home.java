@@ -7,6 +7,8 @@ import service.impl.UserMySqlImpl;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Home{
@@ -17,6 +19,7 @@ public class Home{
         frame.setLocationRelativeTo(null);
         frame.setSize(250,250);
         frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 
@@ -29,19 +32,29 @@ public class Home{
             gbc.gridwidth = GridBagConstraints.REMAINDER;
             gbc.anchor = GridBagConstraints.NORTH;
 
-            this.add(new JLabel("<html><h3><b>Your Rental Admin</b></h3></html>"), gbc);
+            this.add(new JLabel("<html><b>O que deseja fazer?</b></html>"), gbc);
 
             gbc.anchor = GridBagConstraints.CENTER;
             gbc.fill = GridBagConstraints.HORIZONTAL;
 
             JPanel pButtons = new JPanel(new GridBagLayout());
-            pButtons.add(new JButton("Novo aluguel"), gbc);
-            pButtons.add(new JButton("Adicionar novo título"), gbc);
-            pButtons.add(new JButton("Remover título"), gbc);
-            pButtons.add(new JButton("Editar/Deletar título"), gbc);
+            JButton btnNewRent = new JButton("Novo aluguel");
+            JButton btnNewTitle = new JButton("Adicionar novo título");
+            JButton btnNewClient = new JButton("Novo cliente");
+
+            pButtons.add(btnNewRent, gbc);
+            pButtons.add(btnNewTitle, gbc);
+            pButtons.add(btnNewClient, gbc);
             gbc.weighty = 1;
 
             this.add(pButtons, gbc);
+
+            btnNewTitle.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Title title = new Title(user);
+                }
+            });
         }
     }
 }
