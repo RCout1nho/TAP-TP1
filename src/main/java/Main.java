@@ -1,8 +1,12 @@
-import database.DataBaseConnection;
+import model.User;
 import view.Login;
+import view.Title;
 
 public class Main {
     public static void main(String[] args) {
-        Login login = new Login();
+        User user = new User(1, "ricardo", "ricardo@example.com", "123");
+
+        //        Login login = new Login();
+        Title title = new Title(user);
     }
 }

@@ -64,7 +64,7 @@ public class Login {
                         frame.dispose();
                     }else{
                         // TODO: Mostrar dialog
-                        System.out.println("login/senha inválidos");
+                        System.out.println("login/Senha inválidos");
                     }
                 }
             });
