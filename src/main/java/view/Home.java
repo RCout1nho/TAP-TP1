@@ -55,6 +55,13 @@ public class Home{
                     Title title = new Title(user);
                 }
             });
+
+            btnNewRent.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                }
+            });
         }
     }
 }

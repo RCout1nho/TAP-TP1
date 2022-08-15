@@ -25,7 +25,7 @@ public class Title {
         frame.setLocationRelativeTo(null);
         frame.setSize(400,350);
         frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.add(new MainPanel(user, titleService));
         frame.setVisible(true);
     }

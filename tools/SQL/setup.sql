@@ -14,3 +14,16 @@ quantity INTEGER NOT NULL,
 max_period_rent INTEGER NOT NULL,
 PRIMARY KEY(id)
 );
+
+CREATE TABLE tap_db.rents(
+	id INT NOT NULL AUTO_INCREMENT,
+	employee_id INT NOT NULL,
+	client_id INT NOT NULL,
+	title_id INT NOT NULL,
+	start_date DATE NOT NULL,
+	end_date DATE NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY (employee_id) REFERENCES users(id),
+	FOREIGN KEY (client_id) REFERENCES users(id),
+	FOREIGN KEY (title_id) REFERENCES titles(id)
+);
