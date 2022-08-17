@@ -56,12 +56,10 @@ public class LoginView {
                 public void actionPerformed(ActionEvent e) {
                     User user = userService.login(tfEmail.getText(), tfPassword.getText());
                     if(user != null){
-                        // login
                         HomeView home = new HomeView(user);
                         frame.dispose();
                     }else{
-                        // TODO: Mostrar dialog
-                        System.out.println("login/Senha inválidos");
+                        JOptionPane.showMessageDialog(frame, "Login/Senha inválidos!", "Erro de validação", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             });

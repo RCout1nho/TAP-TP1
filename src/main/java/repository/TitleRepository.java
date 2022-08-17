@@ -30,12 +30,45 @@ public class TitleRepository {
         }
     }
 
+    public Integer getTitleRemaingQuantity(Integer titleId){
+        try {
+            Statement st = connection.createStatement();
+            String query = String.format("SELECT t.quantity FROM tap_db.titles t WHERE t.id = %d", titleId);
+            ResultSet rs = st.executeQuery(query);
+            if(rs.next()){
+                return rs.getInt("quantity");
+            }
+            return null;
+        }catch (Exception e){
+            return null;
+        }
+    }
+
     public List<Title> getAll(){
         try{
             List<Title> titles = new ArrayList<>();
 
             Statement st = connection.createStatement();
             String query = "SELECT * FROM tap_db.titles";
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()){
+                Title title = new Title(rs.getInt("id"), rs.getString("name"),
+                        rs.getString("type"), rs.getInt("quantity"),
+                        rs.getInt("max_period_rent"));
+                titles.add(title);
+            }
+            return titles;
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Title> getAllAvailable(){
+        try{
+            List<Title> titles = new ArrayList<>();
+
+            Statement st = connection.createStatement();
+            String query = "SELECT * FROM tap_db.titles t WHERE t.quantity > 0";
             ResultSet rs = st.executeQuery(query);
             while (rs.next()){
                 Title title = new Title(rs.getInt("id"), rs.getString("name"),

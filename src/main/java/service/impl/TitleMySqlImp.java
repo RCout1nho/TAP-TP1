@@ -23,4 +23,9 @@ public class TitleMySqlImp implements TitleService {
     public List<Title> getAll() {
         return titleRepository.getAll();
     }
+
+    @Override
+    public List<Title> getAllAvailable() {
+        return titleRepository.getAllAvailable();
+    }
 }

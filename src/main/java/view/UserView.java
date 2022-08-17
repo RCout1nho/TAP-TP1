@@ -84,11 +84,18 @@ public class UserView {
                             JOptionPane.showMessageDialog(frame, "Usuário criado com sucesso!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
                             frame.setVisible(false);
                         }else{
-                            JOptionPane.showMessageDialog(frame, "Ocorreu um erro de comunicação com o DB, tente novament mais tarde", "Erro interno", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(frame, "Ocorreu um erro de comunicação com o DB, tente novamente mais tarde", "Erro interno", JOptionPane.WARNING_MESSAGE);
                         }
                     }else{
                         JOptionPane.showMessageDialog(frame, "Alguns campos podem estar incorretos", "Erro de validação", JOptionPane.WARNING_MESSAGE);
                     }
+                }
+            });
+
+            btnCancel.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame.setVisible(false);
                 }
             });
         }

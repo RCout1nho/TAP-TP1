@@ -9,4 +9,6 @@ public interface TitleService {
     void createTitle(CreateTitleDto title);
 
     List<Title> getAll();
+    List<Title> getAllAvailable();
+
 }

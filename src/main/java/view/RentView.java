@@ -91,6 +91,8 @@ public class RentView {
             btnCancel.setBounds(120, 175, 200,20);
             this.add(btnCancel);
 
+            Integer teste;
+
             btnCreate.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -102,7 +104,12 @@ public class RentView {
                     String endDate = LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                     CreateRentDto rent = new CreateRentDto(employeeId, clientId, titleId, startDate, endDate);
-                    rentService.createRent(rent);
+                    if(rentService.createRent(rent)){
+                        JOptionPane.showMessageDialog(frame, "Aluguel criado com sucesso!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
+                        frame.setVisible(false);
+                    }else{
+                        JOptionPane.showMessageDialog(frame, "Ocorreu um erro de comunicação com o DB, tente novamente mais tarde", "Erro interno", JOptionPane.WARNING_MESSAGE);
+                    }
                 }
             });
 

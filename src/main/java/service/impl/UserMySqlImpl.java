@@ -2,6 +2,7 @@ package service.impl;
 
 import dto.CreateUserDto;
 import model.User;
+import model.enumerators.UserTypeEnum;
 import repository.UserRepository;
 import service.UserService;
 

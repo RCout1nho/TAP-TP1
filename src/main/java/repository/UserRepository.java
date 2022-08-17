@@ -23,7 +23,7 @@ public class UserRepository{
         try {
             Statement st = connection.createStatement();
             String query = String.format("INSERT INTO tap_db.users (name, email, type, password) VALUES ('%s', '%s', '%s', '%s')",
-                    user.getName(), user.getEmail(), user.getType(), user.getName()
+                    user.getName(), user.getEmail(), user.getType(), user.getPassword()
                     );
             st.executeUpdate(query);
             return true;
@@ -67,7 +67,7 @@ public class UserRepository{
     public User getUserByEmailAndPassword(String email, String pasword){
         try{
             Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(String.format("SELECT * FROM tap_db.users WHERE email = '%s' AND password = '%s'", email, pasword));
+            ResultSet rs = st.executeQuery(String.format("SELECT * FROM tap_db.users u WHERE u.email = '%s' AND u.password = '%s' AND u.type = 'ADMIN'", email, pasword));
                 if(rs.next()){
                     System.out.println(rs.getString("name"));
                     User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), UserTypeEnum.valueOf(rs.getString("type")));
@@ -75,7 +75,7 @@ public class UserRepository{
                 }
                 return null;
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            return null;
         }
     }
 }

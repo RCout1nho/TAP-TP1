@@ -36,10 +36,12 @@ public class HomeView {
 
             JPanel pButtons = new JPanel(new GridBagLayout());
             JButton btnNewRent = new JButton("Novo aluguel");
+            JButton btnDoReturn = new JButton("Fazer devolução");
             JButton btnNewTitle = new JButton("Adicionar novo título");
             JButton btnNewUser = new JButton("Novo usuário");
 
             pButtons.add(btnNewRent, gbc);
+            pButtons.add(btnDoReturn, gbc);
             pButtons.add(btnNewTitle, gbc);
             pButtons.add(btnNewUser, gbc);
             gbc.weighty = 1;
@@ -50,6 +52,13 @@ public class HomeView {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     TitleView titleView = new TitleView(user);
+                }
+            });
+
+            btnDoReturn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ReturnView returnView = new ReturnView(user);
                 }
             });
 
