@@ -2,18 +2,15 @@ package view;
 
 import model.User;
 import service.UserService;
-import service.impl.UserMockedImpl;
 import service.impl.UserMySqlImpl;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.util.Optional;
 
-public class Login {
-    public Login(){
+public class LoginView {
+    public LoginView(){
         UserService userService = new UserMySqlImpl();
 
         JFrame frame = new JFrame("Your Rental Admin");
@@ -60,7 +57,7 @@ public class Login {
                     User user = userService.login(tfEmail.getText(), tfPassword.getText());
                     if(user != null){
                         // login
-                        Home home = new Home(user);
+                        HomeView home = new HomeView(user);
                         frame.dispose();
                     }else{
                         // TODO: Mostrar dialog

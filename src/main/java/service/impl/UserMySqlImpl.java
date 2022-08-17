@@ -17,13 +17,18 @@ public class UserMySqlImpl implements UserService {
     }
 
     @Override
-    public User createUser(CreateUserDto createUserDto) {
-        return null;
+    public Boolean createUser(CreateUserDto createUserDto) {
+        return userRepository.createUser(createUserDto);
     }
 
     @Override
     public List<User> getAllUsers() {
         return userRepository.getAllUsers();
+    }
+
+    @Override
+    public List<User> getClientUsers() {
+        return userRepository.getClientUsers();
     }
 
     @Override

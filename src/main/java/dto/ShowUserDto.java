@@ -1,14 +1,19 @@
 package dto;
 
-public class ShowUserDto {
-    private Integer id;
-    private String name;
-    private String email;
+import model.enumerators.UserTypeEnum;
 
-    public ShowUserDto(Integer id, String name, String email) {
+public class ShowUserDto {
+    private final Integer id;
+    private final String name;
+    private final String email;
+    private final UserTypeEnum type;
+
+
+    public ShowUserDto(Integer id, String name, String email, UserTypeEnum type) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.type = type;
     }
 
     public Integer getId() {
@@ -21,5 +26,9 @@ public class ShowUserDto {
 
     public String getEmail() {
         return email;
+    }
+
+    public UserTypeEnum getType() {
+        return type;
     }
 }

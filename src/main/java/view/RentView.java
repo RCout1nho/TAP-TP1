@@ -1,6 +1,6 @@
 package view;
 
-import dto.CreateRent;
+import dto.CreateRentDto;
 import model.Title;
 import model.User;
 import service.RentService;
@@ -9,34 +9,24 @@ import service.UserService;
 import service.impl.RentMySqlImpl;
 import service.impl.TitleMySqlImp;
 import service.impl.UserMySqlImpl;
-import util.IntegerFormatter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListDataEvent;
-import javax.swing.text.DateFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.NumericShaper;
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Rent {
+public class RentView {
     RentService rentService;
     UserService userService;
     TitleService titleService;
 
-    public Rent(User user){
+    public RentView(User user){
         rentService = new RentMySqlImpl();
         userService = new UserMySqlImpl();
         titleService = new TitleMySqlImp();
@@ -46,15 +36,15 @@ public class Rent {
         frame.setLocationRelativeTo(null);
         frame.setSize(400,350);
         frame.setResizable(false);
-        frame.add(new Rent.MainPanel(user, rentService, userService, titleService));
+        frame.add(new RentView.MainPanel(user, rentService, userService, titleService, frame));
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setVisible(true);
     }
 
     static class MainPanel extends JPanel{
-        public MainPanel(User current_user, RentService rentService, UserService userService , TitleService titleService){
-            ArrayList<User> users = new ArrayList<>(
-                    userService.getAllUsers()
+        public MainPanel(User current_user, RentService rentService, UserService userService , TitleService titleService, JFrame frame){
+            ArrayList<User> clientUsers = new ArrayList<>(
+                    userService.getClientUsers()
             );
 
             ArrayList<Title> titles = new ArrayList<>(
@@ -70,7 +60,7 @@ public class Rent {
             lbPageTitle.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(lbPageTitle);
 
-            JComboBox cbClient = new JComboBox(users.stream().map(u -> u.name).toArray());
+            JComboBox cbClient = new JComboBox(clientUsers.stream().map(u -> u.name).toArray());
             JLabel lbClient = new JLabel("Cliente");
             lbClient.setBounds(20,75,50,20);
             cbClient.setBounds(120,75,200,20);
@@ -104,15 +94,22 @@ public class Rent {
             btnCreate.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Integer clientId = users.get(cbClient.getSelectedIndex()).id;
+                    Integer clientId = clientUsers.get(cbClient.getSelectedIndex()).id;
                     Integer employeeId = current_user.id;
                     Integer titleId = titles.get(cbTitle.getSelectedIndex()).id;
-                    Integer days = Integer.parseInt(cbPeriodRent.getSelectedItem().toString());
+                    Integer days = Integer.parseInt(cbPeriodRent.getSelectedItem() != null ? cbPeriodRent.getSelectedItem().toString() : "0");
                     String startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     String endDate = LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                    CreateRent rent = new CreateRent(employeeId, clientId, titleId, startDate, endDate);
+                    CreateRentDto rent = new CreateRentDto(employeeId, clientId, titleId, startDate, endDate);
                     rentService.createRent(rent);
+                }
+            });
+
+            btnCancel.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame.setVisible(false);
                 }
             });
 
@@ -122,8 +119,8 @@ public class Rent {
                     List<Integer> newDays = IntStream.range(1,titles.get(cbTitle.getSelectedIndex()).maxPeriodOfRent).boxed().toList();
                     cbPeriodRent.removeAllItems();
 
-                    for(int i = 0;i<newDays.size();i++){
-                        cbPeriodRent.addItem(newDays.get(i));
+                    for (Integer newDay : newDays) {
+                        cbPeriodRent.addItem(newDay);
                     }
                 }
             });

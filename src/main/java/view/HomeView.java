@@ -1,18 +1,15 @@
 package view;
 
 import model.User;
-import service.UserService;
-import service.impl.UserMySqlImpl;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
-public class Home{
-    public Home(User user){
+public class HomeView {
+    public HomeView(User user){
         JFrame frame = new JFrame("Your Rental Admin");
         frame.add(new MainPanel(user));
         frame.pack();
@@ -40,11 +37,11 @@ public class Home{
             JPanel pButtons = new JPanel(new GridBagLayout());
             JButton btnNewRent = new JButton("Novo aluguel");
             JButton btnNewTitle = new JButton("Adicionar novo título");
-            JButton btnNewClient = new JButton("Novo cliente");
+            JButton btnNewUser = new JButton("Novo usuário");
 
             pButtons.add(btnNewRent, gbc);
             pButtons.add(btnNewTitle, gbc);
-            pButtons.add(btnNewClient, gbc);
+            pButtons.add(btnNewUser, gbc);
             gbc.weighty = 1;
 
             this.add(pButtons, gbc);
@@ -52,14 +49,21 @@ public class Home{
             btnNewTitle.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Title title = new Title(user);
+                    TitleView titleView = new TitleView(user);
                 }
             });
 
             btnNewRent.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    RentView rentView = new RentView(user);
+                }
+            });
 
+            btnNewUser.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    UserView userView = new UserView(user);
                 }
             });
         }

@@ -8,8 +8,9 @@ import java.util.Optional;
 
 // TODO: Missing update method
 public interface UserService {
-    User createUser(CreateUserDto createUserDto);
+    Boolean createUser(CreateUserDto createUserDto);
     List<User> getAllUsers();
+    List<User> getClientUsers();
     User getUserById(Integer id);
     void removeUser(Integer id);
    User login(String email, String password);

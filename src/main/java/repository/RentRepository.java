@@ -1,7 +1,7 @@
 package repository;
 
 import database.DataBaseConnection;
-import dto.CreateRent;
+import dto.CreateRentDto;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ public class RentRepository {
         this.connection = DataBaseConnection.getConnection();
     }
 
-    public void createRent(CreateRent rent){
+    public void createRent(CreateRentDto rent){
         try{
             Statement st = connection.createStatement();
             String query = String.format("INSERT INTO tap_db.rents (employee_id, client_id, title_id, start_date, end_date) VALUES (%d, %d, %d, '%s', '%s')",

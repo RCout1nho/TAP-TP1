@@ -1,6 +1,6 @@
 package service.impl;
 
-import dto.CreateRent;
+import dto.CreateRentDto;
 import repository.RentRepository;
 import service.RentService;
 
@@ -12,7 +12,7 @@ public class RentMySqlImpl implements RentService {
     }
 
     @Override
-    public void createRent(CreateRent rent) {
+    public void createRent(CreateRentDto rent) {
         this.rentRepository.createRent(rent);
     }
 }

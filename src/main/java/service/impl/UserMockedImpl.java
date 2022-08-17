@@ -2,6 +2,7 @@ package service.impl;
 
 import dto.CreateUserDto;
 import model.User;
+import model.enumerators.UserTypeEnum;
 import service.UserService;
 
 import java.util.ArrayList;
@@ -14,15 +15,20 @@ public class UserMockedImpl implements UserService {
 
     public UserMockedImpl() {
         users = new ArrayList<>();
-        users.add(new User(1, "Ricardo", "ricardo@example.com","123"));
-        users.add(new User(1, "Horacio","horacio@example.com","123"));
+        users.add(new User(1, "Ricardo", "ricardo@example.com", UserTypeEnum.ADMIN,"123"));
+        users.add(new User(1, "Horacio","horacio@example.com", UserTypeEnum.ADMIN,"123"));
     }
 
     @Override
-    public User createUser(CreateUserDto createUserDto) {
-        User user = new User(users.get(users.size()-1).id, createUserDto.getName(), createUserDto.getEmail() , createUserDto.getPassword());
+    public Boolean createUser(CreateUserDto createUserDto) {
+        User user = new User(users.get(users.size()-1).id, createUserDto.getName(), createUserDto.getEmail() , createUserDto.getType(),  createUserDto.getPassword());
         users.add(user);
-        return user;
+        return true;
+    }
+
+    @Override
+    public List<User> getClientUsers() {
+        return null;
     }
 
     @Override

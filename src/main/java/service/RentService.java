@@ -1,7 +1,7 @@
 package service;
 
-import dto.CreateRent;
+import dto.CreateRentDto;
 
 public interface RentService {
-    void createRent(CreateRent rent);
+    void createRent(CreateRentDto rent);
 }

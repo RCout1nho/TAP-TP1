@@ -15,10 +15,10 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 
-public class Title {
+public class TitleView {
     TitleService titleService;
 
-    public Title(User user){
+    public TitleView(User user){
         titleService = new TitleMySqlImp();
         JFrame frame = new JFrame("Your rental Admin");
         frame.pack();
@@ -26,12 +26,12 @@ public class Title {
         frame.setSize(400,350);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.add(new MainPanel(user, titleService));
+        frame.add(new MainPanel(user, titleService, frame));
         frame.setVisible(true);
     }
 
     static class MainPanel extends JPanel{
-        public MainPanel(User user, TitleService titleService){
+        public MainPanel(User user, TitleService titleService, JFrame frame){
             this.setBorder(new EmptyBorder(10,10,10,10));
             this.setLayout(null);
 
@@ -87,6 +87,13 @@ public class Title {
                     }else {
                         System.out.println("invalido");
                     }
+                }
+            });
+
+            btnCancel.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame.setVisible(false);
                 }
             });
         }

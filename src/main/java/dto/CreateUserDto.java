@@ -1,13 +1,17 @@
 package dto;
 
-public class CreateUserDto {
-    private String name;
-    private String email;
-    private String password;
+import model.enumerators.UserTypeEnum;
 
-    public CreateUserDto(String name, String email, String password) {
+public class CreateUserDto {
+    private final String name;
+    private final String email;
+    private final UserTypeEnum type;
+    private final String password;
+
+    public CreateUserDto(String name, String email, UserTypeEnum type, String password) {
         this.name = name;
         this.email = email;
+        this.type = type;
         this.password = password;
     }
 
@@ -21,5 +25,9 @@ public class CreateUserDto {
 
     public String getPassword() {
         return password;
+    }
+
+    public UserTypeEnum getType() {
+        return type;
     }
 }
