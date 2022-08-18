@@ -2,13 +2,10 @@ package service.impl;
 
 import dto.CreateUserDto;
 import model.User;
-import model.enumerators.UserTypeEnum;
 import repository.UserRepository;
 import service.UserService;
 
-import java.sql.Connection;
 import java.util.List;
-import java.util.Optional;
 
 public class UserMySqlImpl implements UserService {
     private final UserRepository userRepository;
@@ -44,7 +41,6 @@ public class UserMySqlImpl implements UserService {
 
     @Override
     public User login(String email, String password) {
-        User user = userRepository.getUserByEmailAndPassword(email, password);
-        return user;
+        return userRepository.getUserByEmailAndPassword(email, password);
     }
 }
