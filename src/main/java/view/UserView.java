@@ -23,7 +23,7 @@ public class UserView {
         frame.setLocationRelativeTo(null);
         frame.setSize(400,350);
         frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.add(new MainPanel(user, userService, frame));
         frame.setVisible(true);
     }

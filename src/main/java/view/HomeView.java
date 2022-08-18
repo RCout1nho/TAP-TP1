@@ -3,79 +3,86 @@ package view;
 import model.User;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HomeView {
+    private final User user;
+
+    private JFrame frame;
+
     public HomeView(User user){
-        JFrame frame = new JFrame("Your Rental Admin");
-        frame.add(new MainPanel(user));
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setSize(250,250);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.user = user;
+        initialize();
         frame.setVisible(true);
     }
 
-    static class MainPanel extends JPanel {
-        public MainPanel(User user){
-            this.setBorder(new EmptyBorder(10,10,10,10));
-            this.setLayout(new GridBagLayout());
+    private void initialize(){
+        frame = new JFrame();
+        frame.setResizable(false);
+        frame.setBounds(100, 100, 262, 302);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
 
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridwidth = GridBagConstraints.REMAINDER;
-            gbc.anchor = GridBagConstraints.NORTH;
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        tabbedPane.setBounds(0, 0, 262, 268);
+        frame.getContentPane().add(tabbedPane);
 
-            this.add(new JLabel("<html><b>O que deseja fazer?</b></html>"), gbc);
+        JPanel panelUsers = new JPanel();
+        tabbedPane.addTab("Usuários", panelUsers);
+        panelUsers.setLayout(null);
 
-            gbc.anchor = GridBagConstraints.CENTER;
-            gbc.fill = GridBagConstraints.HORIZONTAL;
+        JButton btnNewUser = new JButton("Cadastrar usuário");
+        btnNewUser.setBounds(34, 12, 181, 25);
+        panelUsers.add(btnNewUser);
 
-            JPanel pButtons = new JPanel(new GridBagLayout());
-            JButton btnNewRent = new JButton("Novo aluguel");
-            JButton btnDoReturn = new JButton("Fazer devolução");
-            JButton btnNewTitle = new JButton("Adicionar novo título");
-            JButton btnNewUser = new JButton("Novo usuário");
+        JPanel panelTitles = new JPanel();
+        tabbedPane.addTab("Títulos", panelTitles);
+        panelTitles.setLayout(null);
 
-            pButtons.add(btnNewRent, gbc);
-            pButtons.add(btnDoReturn, gbc);
-            pButtons.add(btnNewTitle, gbc);
-            pButtons.add(btnNewUser, gbc);
-            gbc.weighty = 1;
+        JButton btnNewTitle = new JButton("Cadastrar título");
+        btnNewTitle.setBounds(37, 12, 181, 25);
+        panelTitles.add(btnNewTitle);
 
-            this.add(pButtons, gbc);
+        JPanel panelRents = new JPanel();
+        tabbedPane.addTab("Aluguéis", panelRents);
+        panelRents.setLayout(null);
 
-            btnNewTitle.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    TitleView titleView = new TitleView(user);
-                }
-            });
+        JButton btnNewRent = new JButton("Novo aluguel");
+        btnNewRent.setBounds(39, 12, 181, 25);
+        panelRents.add(btnNewRent);
 
-            btnDoReturn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ReturnView returnView = new ReturnView(user);
-                }
-            });
+        JButton btnDoReturn = new JButton("Fazer devolução");
+        btnDoReturn.setBounds(39, 49, 181, 25);
+        panelRents.add(btnDoReturn);
 
-            btnNewRent.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    RentView rentView = new RentView(user);
-                }
-            });
+        btnNewTitle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TitleView titleView = new TitleView(user);
+            }
+        });
 
-            btnNewUser.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    UserView userView = new UserView(user);
-                }
-            });
-        }
+        btnDoReturn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ReturnView returnView = new ReturnView(user);
+            }
+        });
+
+        btnNewRent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RentView rentView = new RentView(user);
+            }
+        });
+
+        btnNewUser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserView userView = new UserView(user);
+            }
+        });
     }
 }
 ;

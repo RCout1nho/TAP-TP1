@@ -25,7 +25,7 @@ public class TitleView {
         frame.setLocationRelativeTo(null);
         frame.setSize(400,350);
         frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.add(new MainPanel(user, titleService, frame));
         frame.setVisible(true);
     }
@@ -84,8 +84,10 @@ public class TitleView {
                     CreateTitleDto title = Validators.validate(tfName.getText(), cbType.getSelectedItem().toString(), tfQuantity.getText(), tfMaxPeriod.getText());
                     if(title != null){
                         titleService.createTitle(title);
+                        JOptionPane.showMessageDialog(frame, "Título criado com sucesso!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
+                        frame.setVisible(false);
                     }else {
-                        System.out.println("invalido");
+                        JOptionPane.showMessageDialog(frame, "Alguns campos podem estar incorretos", "Erro de validação", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             });

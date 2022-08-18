@@ -10,59 +10,80 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginView {
-    public LoginView(){
-        UserService userService = new UserMySqlImpl();
+    private final UserService userService;
 
-        JFrame frame = new JFrame("Your Rental Admin");
-        frame.add(new MainPanel(userService, frame));
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setSize(300,250);
-        frame.setResizable(false);
-        frame.setFont(new Font("sans-serif", Font.PLAIN, 15));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private JFrame frame;
+    private JTextField tfEmail;
+    private JTextField tfPassword;
+
+    public LoginView(){
+        userService = new UserMySqlImpl();
+        initialize();
         frame.setVisible(true);
     }
-    static class MainPanel extends JPanel{
-        public MainPanel(UserService userService, JFrame frame){
-            this.setLayout(null);
 
-            JLabel lbTitle = new JLabel("Login");
-            lbTitle.setBounds(0,0,300,40);
-            lbTitle.setFont(new Font("sans-serif", Font.BOLD, 20));
-            lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(lbTitle);
+    private void initialize(){
+        frame = new JFrame();
+        frame.setResizable(false);
+        frame.setBounds(100, 100, 600, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
 
-            JTextField tfEmail = new JTextField();
-            JLabel lbEmail = new JLabel("E-mail");
-            lbEmail.setBounds(20,75,50,20);
-            tfEmail.setBounds(75,75,200,20);
-            this.add(lbEmail);
-            this.add(tfEmail);
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(51, 204, 153));
+        panel.setBounds(0, 0, 300, 368);
+        frame.getContentPane().add(panel);
+        panel.setLayout(null);
 
-            JTextField tfPassword = new JTextField();
-            JLabel lbPassword = new JLabel("Senha");
-            lbPassword.setBounds(20,100,50,20);
-            tfPassword.setBounds(75,100,200,20);
-            this.add(lbPassword);
-            this.add(tfPassword);
+        JLabel lblNewLabel = new JLabel("My rental admin");
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel.setBounds(0, 163, 300, 15);
+        panel.add(lblNewLabel);
 
-            JButton btnLogin = new JButton("Entrar");
-            btnLogin.setBounds(184, 130, 90,20);
-            this.add(btnLogin);
+        JPanel panel_1 = new JPanel();
+        panel_1.setBackground(Color.WHITE);
+        panel_1.setBounds(300, 0, 290, 368);
+        frame.getContentPane().add(panel_1);
+        panel_1.setLayout(null);
 
-            btnLogin.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    User user = userService.login(tfEmail.getText(), tfPassword.getText());
-                    if(user != null){
-                        HomeView home = new HomeView(user);
-                        frame.dispose();
-                    }else{
-                        JOptionPane.showMessageDialog(frame, "Login/Senha inválidos!", "Erro de validação", JOptionPane.WARNING_MESSAGE);
-                    }
+        JLabel lblLogin = new JLabel("Login");
+        lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
+        lblLogin.setHorizontalTextPosition(SwingConstants.CENTER);
+        lblLogin.setBounds(12, 5, 278, 30);
+        panel_1.add(lblLogin);
+
+        JLabel lbEmail = new JLabel("E-mail");
+        lbEmail.setBounds(12, 164, 70, 15);
+        panel_1.add(lbEmail);
+        tfEmail = new JTextField();
+        tfEmail.setBounds(71, 162, 190, 19);
+        panel_1.add(tfEmail);
+        tfEmail.setColumns(10);
+
+        JLabel lbPassword = new JLabel("Senha");
+        lbPassword.setBounds(12, 193, 70, 15);
+        panel_1.add(lbPassword);
+
+        tfPassword = new JTextField();
+        tfPassword.setColumns(10);
+        tfPassword.setBounds(71, 191, 190, 19);
+        panel_1.add(tfPassword);
+
+        JButton btnLogin = new JButton("Entrar");
+        btnLogin.setBounds(144, 235, 117, 25);
+        panel_1.add(btnLogin);
+
+        btnLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                User user = userService.login(tfEmail.getText(), tfPassword.getText());
+                if(user != null){
+                    HomeView home = new HomeView(user);
+                    frame.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(frame, "Login/Senha inválidos!", "Erro de validação", JOptionPane.WARNING_MESSAGE);
                 }
-            });
-        }
+            }
+        });
     }
 }

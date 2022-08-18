@@ -32,7 +32,7 @@ public class ReturnView {
         frame.setSize(400,350);
         frame.setResizable(false);
         frame.add(new MainPanel(user, rentService, userService, frame));
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setVisible(true);
     }
 
@@ -58,9 +58,9 @@ public class ReturnView {
             this.add(lbClient);
             this.add(cbClient);
 
-            ArrayList<RentWithTitleNameDto> rentTitles = new ArrayList<>(
+            ArrayList<RentWithTitleNameDto> rentTitles = cbClient.getSelectedIndex() >=0 ?  new ArrayList<>(
                     rentService.getAllByClientId(clientUsers.get(cbClient.getSelectedIndex()).id)
-            );
+            ) : new ArrayList<>();
 
             JComboBox cbTitle = new JComboBox(rentTitles.stream().map(RentWithTitleNameDto::getTitle_name).toArray());
             JLabel lbTitle = new JLabel("Titulo");

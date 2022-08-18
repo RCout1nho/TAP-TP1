@@ -37,7 +37,7 @@ public class RentView {
         frame.setSize(400,350);
         frame.setResizable(false);
         frame.add(new RentView.MainPanel(user, rentService, userService, titleService, frame));
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setVisible(true);
     }
 
@@ -74,7 +74,7 @@ public class RentView {
             this.add(lbTitle);
             this.add(cbTitle);
 
-            final List<Integer> days = IntStream.range(1,titles.get(cbTitle.getSelectedIndex()).maxPeriodOfRent).boxed().toList();
+            final List<Integer> days = IntStream.range(1,cbTitle.getSelectedIndex() >=0 ? titles.get(cbTitle.getSelectedIndex()).maxPeriodOfRent+1 : 1).boxed().toList();
 
             JComboBox cbPeriodRent = new JComboBox(days.toArray());
             JLabel lbPeriodRent = new JLabel("Dias");
@@ -91,24 +91,26 @@ public class RentView {
             btnCancel.setBounds(120, 175, 200,20);
             this.add(btnCancel);
 
-            Integer teste;
-
             btnCreate.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Integer clientId = clientUsers.get(cbClient.getSelectedIndex()).id;
-                    Integer employeeId = current_user.id;
-                    Integer titleId = titles.get(cbTitle.getSelectedIndex()).id;
-                    Integer days = Integer.parseInt(cbPeriodRent.getSelectedItem() != null ? cbPeriodRent.getSelectedItem().toString() : "0");
-                    String startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    String endDate = LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    try{
+                        Integer clientId = clientUsers.get(cbClient.getSelectedIndex()).id;
+                        Integer employeeId = current_user.id;
+                        Integer titleId = titles.get(cbTitle.getSelectedIndex()).id;
+                        Integer days = Integer.parseInt(cbPeriodRent.getSelectedItem() != null ? cbPeriodRent.getSelectedItem().toString() : "0");
+                        String startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        String endDate = LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                    CreateRentDto rent = new CreateRentDto(employeeId, clientId, titleId, startDate, endDate);
-                    if(rentService.createRent(rent)){
-                        JOptionPane.showMessageDialog(frame, "Aluguel criado com sucesso!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
-                        frame.setVisible(false);
-                    }else{
-                        JOptionPane.showMessageDialog(frame, "Ocorreu um erro de comunicação com o DB, tente novamente mais tarde", "Erro interno", JOptionPane.WARNING_MESSAGE);
+                        CreateRentDto rent = new CreateRentDto(employeeId, clientId, titleId, startDate, endDate);
+                        if(rentService.createRent(rent)){
+                            JOptionPane.showMessageDialog(frame, "Aluguel criado com sucesso!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
+                            frame.setVisible(false);
+                        }else{
+                            JOptionPane.showMessageDialog(frame, "Ocorreu um erro de comunicação com o DB, tente novamente mais tarde", "Erro interno", JOptionPane.WARNING_MESSAGE);
+                        }
+                    }catch (Exception err){
+                        JOptionPane.showMessageDialog(frame, "Alguns campos podem estar incorretos", "Erro de validação", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             });
@@ -123,7 +125,7 @@ public class RentView {
             cbTitle.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    List<Integer> newDays = IntStream.range(1,titles.get(cbTitle.getSelectedIndex()).maxPeriodOfRent).boxed().toList();
+                    List<Integer> newDays = IntStream.range(1,titles.get(cbTitle.getSelectedIndex()).maxPeriodOfRent+1).boxed().toList();
                     cbPeriodRent.removeAllItems();
 
                     for (Integer newDay : newDays) {

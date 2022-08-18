@@ -28,3 +28,5 @@ CREATE TABLE tap_db.rents(
 	FOREIGN KEY (client_id) REFERENCES users(id),
 	FOREIGN KEY (title_id) REFERENCES titles(id)
 );
+
+INSERT INTO tap_db.users (name, email, type, password) VALUES ('Horácio', 'horacio@email.com', 'ADMIN', '123');
