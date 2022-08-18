@@ -1,18 +1,18 @@
 CREATE TABLE tap_db.users(
-id INTEGER NOT NULL AUTO_INCREMENT,
-name varchar(255) NOT NULL,
-email varchar(255) NOT NULL,
+id INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL,
 type ENUM('CLIENT', 'ADMIN'),
-password varchar(255) NOT NULL,
+password VARCHAR(255) NOT NULL,
 PRIMARY KEY(id)
 );
 
 CREATE TABLE tap_db.titles(
-id INTEGER NOT NULL AUTO_INCREMENT,
+id INT NOT NULL AUTO_INCREMENT,
 name VARCHAR(255) NOT NULL,
 type ENUM('BLURAY', 'DVD', 'CD', 'VIDEO_TAPE'),
-quantity INTEGER NOT NULL,
-max_period_rent INTEGER NOT NULL,
+quantity INT NOT NULL,
+max_period_rent INT NOT NULL,
 PRIMARY KEY(id)
 );
 
@@ -29,4 +29,5 @@ CREATE TABLE tap_db.rents(
 	FOREIGN KEY (title_id) REFERENCES titles(id)
 );
 
-INSERT INTO tap_db.users (name, email, type, password) VALUES ('Horácio', 'horacio@email.com', 'ADMIN', '123');
+INSERT INTO tap_db.users (name, email, type, password) VALUES ('Horácio', 'horacio@gmail.com', 'ADMIN', '202cb962ac59075b964b07152d234b70');
+INSERT INTO tap_db.titles (name, type, quantity, max_period_rent) VALUES ('Avengers', 'BLURAY', 10, 7);
