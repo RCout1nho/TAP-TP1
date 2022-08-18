@@ -3,11 +3,11 @@ package model;
 import model.enumerators.UserTypeEnum;
 
 public class User {
-    public Integer id;
-    public String name;
-    public String email;
-    public UserTypeEnum type;
-    public String password;
+    private Integer id;
+    private String name;
+    private String email;
+    private UserTypeEnum type;
+    private String password;
 
     public User(int id, String name, String email, UserTypeEnum type, String password) {
         this.id = id;
@@ -22,13 +22,23 @@ public class User {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public UserTypeEnum getType() {
+        return type;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

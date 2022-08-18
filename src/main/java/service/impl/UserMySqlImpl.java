@@ -4,6 +4,7 @@ import dto.CreateUserDto;
 import model.User;
 import repository.UserRepository;
 import service.UserService;
+import util.EncryptPassword;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class UserMySqlImpl implements UserService {
 
     @Override
     public Boolean createUser(CreateUserDto createUserDto) {
+        createUserDto.setPassword(EncryptPassword.encrypt(createUserDto.getPassword()));
         return userRepository.createUser(createUserDto);
     }
 
@@ -41,6 +43,7 @@ public class UserMySqlImpl implements UserService {
 
     @Override
     public User login(String email, String password) {
-        return userRepository.getUserByEmailAndPassword(email, password);
+        String encryptedPassword = EncryptPassword.encrypt(password);
+        return userRepository.getUserByEmailAndPassword(email, encryptedPassword);
     }
 }

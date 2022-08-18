@@ -21,7 +21,7 @@ public class UserMockedImpl implements UserService {
 
     @Override
     public Boolean createUser(CreateUserDto createUserDto) {
-        User user = new User(users.get(users.size()-1).id, createUserDto.getName(), createUserDto.getEmail() , createUserDto.getType(),  createUserDto.getPassword());
+        User user = new User(users.get(users.size()-1).getId(), createUserDto.getName(), createUserDto.getEmail() , createUserDto.getType(),  createUserDto.getPassword());
         users.add(user);
         return true;
     }
@@ -38,16 +38,16 @@ public class UserMockedImpl implements UserService {
 
     @Override
     public User getUserById(Integer id) {
-        return users.stream().filter(user -> user.id == id).findFirst().orElse(null);
+        return users.stream().filter(user -> user.getId() == id).findFirst().orElse(null);
     }
 
     @Override
     public void removeUser(Integer id) {
-        users.remove(users.stream().filter(user -> user.id == id).findFirst().orElse(null));
+        users.remove(users.stream().filter(user -> user.getId() == id).findFirst().orElse(null));
     }
 
     @Override
     public User login(String email, String password) {
-        return users.stream().filter(user -> user.email.equals(email) && user.password.equals(password)).findFirst().orElse(null);
+        return users.stream().filter(user -> user.getEmail().equals(email) && user.getPassword().equals(password)).findFirst().orElse(null);
     }
 }

@@ -64,7 +64,7 @@ public class LoginView {
         lbPassword.setBounds(12, 193, 70, 15);
         panel_1.add(lbPassword);
 
-        tfPassword = new JTextField();
+        tfPassword = new JPasswordField();
         tfPassword.setColumns(10);
         tfPassword.setBounds(71, 191, 190, 19);
         panel_1.add(tfPassword);

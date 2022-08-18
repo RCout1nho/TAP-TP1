@@ -6,7 +6,7 @@ public class CreateUserDto {
     private final String name;
     private final String email;
     private final UserTypeEnum type;
-    private final String password;
+    private String password;
 
     public CreateUserDto(String name, String email, UserTypeEnum type, String password) {
         this.name = name;
@@ -29,5 +29,9 @@ public class CreateUserDto {
 
     public UserTypeEnum getType() {
         return type;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
     }
 }

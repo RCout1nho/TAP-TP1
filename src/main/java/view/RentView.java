@@ -60,7 +60,7 @@ public class RentView {
             lbPageTitle.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(lbPageTitle);
 
-            JComboBox cbClient = new JComboBox(clientUsers.stream().map(u -> u.name).toArray());
+            JComboBox cbClient = new JComboBox(clientUsers.stream().map(u -> u.getName()).toArray());
             JLabel lbClient = new JLabel("Cliente");
             lbClient.setBounds(20,75,50,20);
             cbClient.setBounds(120,75,200,20);
@@ -95,8 +95,8 @@ public class RentView {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try{
-                        Integer clientId = clientUsers.get(cbClient.getSelectedIndex()).id;
-                        Integer employeeId = current_user.id;
+                        Integer clientId = clientUsers.get(cbClient.getSelectedIndex()).getId();
+                        Integer employeeId = current_user.getId();
                         Integer titleId = titles.get(cbTitle.getSelectedIndex()).id;
                         Integer days = Integer.parseInt(cbPeriodRent.getSelectedItem() != null ? cbPeriodRent.getSelectedItem().toString() : "0");
                         String startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));

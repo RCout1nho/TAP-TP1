@@ -60,7 +60,7 @@ public class UserView {
             this.add(lbType);
             this.add(cbType);
 
-            JTextField tfPassword = new JTextField();
+            JTextField tfPassword = new JPasswordField();
             JLabel lbPassword = new JLabel("Senha");
             lbPassword.setBounds(20,150,50,20);
             tfPassword.setBounds(120,150,200,20);
