@@ -36,7 +36,7 @@ Para configurar o banco de dados desse projeto adequadamente, você tem 2 opçõ
    2. Executar as querys do arquivo tools/SQL/setup.sql
 
 ### Executando
-Basta rodar o arquivo src/main/java/Main.java.
+Basta rodar o arquivo src/main/java/tp01.Main.java.
 
 #### Obs:
 - Usuário padrão
