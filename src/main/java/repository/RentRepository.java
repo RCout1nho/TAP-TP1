@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RentRepository {
+public class RentRepository extends DataBaseConnection {
     private final Connection connection;
     private final TitleRepository titleRepository;
 

@@ -13,10 +13,10 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserView {
+public class CreateUserView {
     UserService userService;
 
-    public UserView(model.User user){
+    public CreateUserView(model.User user){
         userService = new UserMySqlImpl();
         JFrame frame = new JFrame("Your rental admin");
         frame.pack();

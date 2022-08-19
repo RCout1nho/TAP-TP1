@@ -28,4 +28,14 @@ public class TitleMySqlImp implements TitleService {
     public List<Title> getAllAvailable() {
         return titleRepository.getAllAvailable();
     }
+
+    @Override
+    public boolean delete(Integer id) {
+        return titleRepository.deleteTitle(id);
+    }
+
+    @Override
+    public boolean update(Title title) {
+        return titleRepository.updateTitle(title);
+    }
 }

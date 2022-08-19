@@ -30,6 +30,30 @@ public class TitleRepository {
         }
     }
 
+    public boolean updateTitle(Title title){
+        try{
+            Statement st = connection.createStatement();
+            String query = String.format("UPDATE tap_db.titles t SET t.name='%s', t.type='%s', t.quantity=%d, t.max_period_rent=%d WHERE t.id = %d",
+                   title.name, title.type, title.quantity, title.maxPeriodOfRent, title.id
+            );
+            st.executeUpdate(query);
+            return true;
+        }catch (SQLException e){
+            return false;
+        }
+    }
+
+    public boolean deleteTitle(Integer titleId){
+        try{
+            Statement st = connection.createStatement();
+            String query = String.format("DELETE FROM tap_db.titles t WHERE t.id = %d",titleId);
+            st.executeUpdate(query);
+            return true;
+        }catch (SQLException e){
+            return false;
+        }
+    }
+
     public Integer getTitleRemaingQuantity(Integer titleId){
         try {
             Statement st = connection.createStatement();

@@ -10,5 +10,7 @@ public interface TitleService {
 
     List<Title> getAll();
     List<Title> getAllAvailable();
+    boolean delete(Integer id);
+    boolean update(Title title);
 
 }

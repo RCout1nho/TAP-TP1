@@ -44,6 +44,10 @@ public class HomeView {
         btnNewTitle.setBounds(37, 12, 181, 25);
         panelTitles.add(btnNewTitle);
 
+        JButton btnEditTitle = new JButton("Editar título");
+        btnEditTitle.setBounds(37, 49, 181, 25);
+        panelTitles.add(btnEditTitle);
+
         JPanel panelRents = new JPanel();
         tabbedPane.addTab("Aluguéis", panelRents);
         panelRents.setLayout(null);
@@ -59,28 +63,35 @@ public class HomeView {
         btnNewTitle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TitleView titleView = new TitleView(user);
+                new CreateTitleView(user);
             }
         });
 
         btnDoReturn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ReturnView returnView = new ReturnView(user);
+                new ReturnView(user);
             }
         });
 
         btnNewRent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RentView rentView = new RentView(user);
+                new RentView(user);
             }
         });
 
         btnNewUser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserView userView = new UserView(user);
+                new CreateUserView(user);
+            }
+        });
+
+        btnEditTitle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EditTitleView();
             }
         });
     }

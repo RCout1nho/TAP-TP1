@@ -15,10 +15,10 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 
-public class TitleView {
+public class CreateTitleView {
     TitleService titleService;
 
-    public TitleView(User user){
+    public CreateTitleView(User user){
         titleService = new TitleMySqlImp();
         JFrame frame = new JFrame("Your rental Admin");
         frame.pack();
